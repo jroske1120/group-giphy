@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ImageDisplay from '../ImageDisplay/ImageDisplay';
+import { connect } from 'react-redux';
 
 
 class ImageSearch extends Component {
@@ -11,7 +12,7 @@ class ImageSearch extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log('handleSubmit:', this.state.search);
-    // this.props.dispatch({type: "SET_IMAGE", payload: this.state.search})
+    this.props.dispatch({type: "SET_IMAGE", payload: this.state.search})
 
   }
 
@@ -36,5 +37,8 @@ class ImageSearch extends Component {
   }
   
 }
+const mapReduxStateToProps = (reduxState) => ({
+  reduxState
+});
 
-export default ImageSearch;
+export default connect(mapReduxStateToProps)(ImageSearch);
