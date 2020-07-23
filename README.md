@@ -34,11 +34,12 @@ You will need 2 views for the Base Features. You should put some thought into th
 - Display the results on the DOM.
 - Allow a user to Favorite any of the result images. You'll need to think about what information to save to your own database. Generally you only store the minimum needed to show this image again on the Favorites view.
 
-
 ### Favorites View
-
+<!-- /api/favorite -->
 - Allow a user to see all of the Giphy images they have Favorited. The actual images need to appear on the DOM.
+    <!-- GET request from server -->
 - Allow a user to set a category for a favorite image.
+    <!-- PUT request that UPDATES category to "favoriteColumn" -->
     - Each favorite image can only have 1 category at a time.
     - The category needs to be one of the categories in the database.
 
