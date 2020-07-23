@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import FavView from '../FavView/FavView'
-
+import ImageSearch from '../ImageSearch/ImageSearch';
+import {connect} from 'react-redux'
 
 class App extends Component {
 
@@ -25,6 +23,9 @@ class App extends Component {
             </div>
           </div>
       </Router>
+      <div>
+        <ImageSearch/>
+      </div>
     );
   }
   

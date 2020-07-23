@@ -35,12 +35,12 @@ class FavView extends Component {
                 {/* map from reduxState to list of added images */}
                  JSON stringify to see our path
                {/* {JSON.stringify(this.props.reduxState.dummyReducerList) } */}
-               <ul>
-               {this.props.reduxState.dummyReducerList.map((item) =>{
+               {/* <ul>
+               {this.props.reduxState.differentReducer.map((item) =>{
                    return (
                        <FavItem key={item.id} item={item}/>
                    )
-               })} </ul>
+               })} </ul> */}
 
                 {/* For each image, have a selec>options with categories */}
 
