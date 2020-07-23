@@ -26,10 +26,12 @@ See the `database.sql` file for database setup and details. It offers some of th
 
 You will need 2 views for the Base Features. You should put some thought into the UI and how to style it.
 
-
+Dependendcies
+react-redux, redux-logger, redux-saga, react-dom
 ### Search View
 
 - Allow a user to enter a search string and submit a search request.
+    %searchword% - look at Dev's app for search GETS
 - Query the `Giphy API Search Endpoint` with the given search string FROM THE SERVER.
 - Display the results on the DOM.
 - Allow a user to Favorite any of the result images. You'll need to think about what information to save to your own database. Generally you only store the minimum needed to show this image again on the Favorites view.
