@@ -3,27 +3,38 @@ import { connect } from 'react-redux';
 
 class FavItem extends Component {
 
-    // getFruit() {
-    //     this.props.dispatch( { type: 'FETCH_FRUIT' } );
-    // }
+    handleChange = (event, type) => {
+        console.log('in handleChange', event.target.value);
+        // this.props.dispatch({
+        //   type: "ADD_FEEDBACK",
+        //   payload: {
+        //       category: event.target.value
+        //   }
+        // })
+      }
+    
+      handleSubmit = () => {
+          console.log('in handleSubmit');
+        // conditional that will only advance to next page
+        // if a response is provided
+        // this.props.dispatch
+      }
 
     render() {
         return (
-
-            // <li>
-            // <img src={this.props.REDUCERNAME.path}/>
-
-            // </li>
-
             <li>
-                {/* <img src={this.props.reduxState.favoritesReducer} /> */}
-                <select>
-                    <option>funny</option>
-                    <option>cohort</option>
-                    <option>cartoon</option>
-                    <option>nsfw</option>
-                    <option>meme</option>
+                <img src={this.props.reduxState.dummyReducerList} />
+                <br></br>
+                <select
+                // value={this.props.reduxState.REDUCERWHEREWEPUTFAVS.category_id}
+                onChange={this.handleChange}>
+                    <option value="1">funny</option>
+                    <option value="2">cohort</option>
+                    <option value="3">cartoon</option>
+                    <option value="4">nsfw</option>
+                    <option value="5">meme</option>
                 </select>
+                <button onClick={this.handleSubmit}>Add to this category</button>
             </li>
 
         )
@@ -31,8 +42,8 @@ class FavItem extends Component {
 }
 
 // do we care about redux here. - yes, because... we have to connect to other stuff. yes...
-const mapReduxStateToProps = ( reduxState ) => ({
+const mapReduxStateToProps = (reduxState) => ({
     reduxState
 });
 
-export default connect( mapReduxStateToProps )( FavItem );
+export default connect(mapReduxStateToProps)(FavItem);
