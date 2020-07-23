@@ -14,10 +14,21 @@ function* rootSaga() {
 
 function* getGiphySaga(action) {
   try {
-    const response = yield axios.get('/api/category')
+    const response = yield axios.get('/api/search')
+    yield console.log('back with:', response.data.data);
+    // console.log('search is:', action.payload)
+    put ({type: "FETCH_IMAGE", payload: response.data})
   } catch (error) {
     console.log('issue with saga:', error);
   }
+}
+
+const searchResultReducer = (state={}, action) => {
+  if (action.type === "FETCH_IMAGE"){
+    console.log('searchResult!:', action.payload)
+    return action.payload;
+  }
+  return state;
 }
 
 const sagaMiddleware = createSagaMiddleware();
@@ -27,6 +38,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   combineReducers({
+    searchResultReducer,
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger),
