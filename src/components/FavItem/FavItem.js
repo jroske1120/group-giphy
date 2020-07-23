@@ -16,7 +16,7 @@ class FavItem extends Component {
             // </li>
 
             <li>
-                <img src={this.props.reduxState.dummyReducerList} />
+                {/* <img src={this.props.reduxState.favoritesReducer} /> */}
                 <select>
                     <option>funny</option>
                     <option>cohort</option>
