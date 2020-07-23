@@ -1,36 +1,61 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-// Provider allows us to use redux within our react app
 import { Provider } from 'react-redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import {takeEvery, put} from 'redux-saga/effects';
+import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
-// Import saga middleware
-import sagaMiddleware from 'redux-saga';
-import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
 
+function* rootSaga() {
+  yield takeEvery('SET_IMAGE', getGiphySaga);
+}
 
+// function* getGiphySaga(action) {
+//   try {
+//     const response = yield axios.get('/api/search')
+//     yield console.log('back with:', response.data.data);
+//     // console.log('search is:', action.payload)
+//     put ({type: "FETCH_IMAGE", payload: response.data})
+//   } catch (error) {
+//     console.log('issue with saga:', error);
+//   }
+// }
 
-
-//const dummyReducer
-const dummyReducerList = (state = ['https://image.shutterstock.com/image-photo/white-transparent-leaf-on-mirror-260nw-577160911.jpg'], action) => {
-    if (action.type === 'ADD_FAV') {
-        //update state to add the name to the list
-        return [...state, action.payload]
-    }
-    return state;
+function* getGiphySaga(action){
+  // console.log('trying to send:', action.payload)
+  try {
+    const response = yield axios.get('/api/search', {params: {search: action.payload}})
+    yield put({type:"FETCH_IMAGE", payload: response.data.data})
+  } catch (error) {
+    console.log('issue with saga:', error)
   }
+}
 
-const storeInstance = createStore(
-    combineReducers({
-        dummyReducerList
-    }),
-    // Add sagaMiddleware to our store
-    applyMiddleware(logger),
+const searchResultReducer = (state=[], action) => {
+  if (action.type === "FETCH_IMAGE"){
+    console.log('searchResult!:', action.payload)
+    return action.payload;
+  }
+  return state;
+}
+
+const sagaMiddleware = createSagaMiddleware();
+
+
+
+
+const store = createStore(
+  combineReducers({
+    searchResultReducer,
+  }),
+  // Add sagaMiddleware to our store
+  applyMiddleware(sagaMiddleware, logger),
 );
 
-// Pass rootSaga into our sagaMiddleware
+sagaMiddleware.run(rootSaga);
 
-ReactDOM.render(<Provider store={storeInstance}><App /></Provider>,
-    document.getElementById('react-root'));
+
+
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('react-root'));
