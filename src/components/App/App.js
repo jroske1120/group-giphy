@@ -12,7 +12,8 @@ class App extends Component {
           <div className="App">
             <header >
               <nav>
-                <ul>
+                <ul>                
+                  <li><Link to="/">Home</Link></li>
                 <li><Link to="/favorite">Favorites</Link></li>
                  </ul>
               </nav>
