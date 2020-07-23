@@ -23,7 +23,7 @@ class FavItem extends Component {
     render() {
         return (
             <li>
-                <img src={this.props.reduxState.dummyReducerList} />
+                {/* <img src={this.props.reduxState.dummyReducerList} /> */}
                 <br></br>
                 <select
                 // value={this.props.reduxState.REDUCERWHEREWEPUTFAVS.category_id}
