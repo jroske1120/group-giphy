@@ -25,7 +25,7 @@ class FavItem extends Component {
             <li>
                 <img src={this.props.reduxState.dummyReducerList} />
                 <br></br>
-                <select 
+                <select
                 // value={this.props.reduxState.REDUCERWHEREWEPUTFAVS.category_id}
                 onChange={this.handleChange}>
                     <option value="1">funny</option>

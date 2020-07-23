@@ -23,27 +23,21 @@ class ImageSearch extends Component {
     })
   }
 
+  addToFavorites = (event, imgSrc) => {
+    event.preventDefault();
+    console.log('in click with:', imgSrc);
+  }
+
   render() {
     return (
       <div>
-        <h1>Giphy Search!</h1>
         <form onSubmit={this.handleSubmit}>
           <input type="text" onChange={this.handleChange} placeholder="Search"></input>
           <button type="submit">Search</button>
         </form>
-        {/* <ul>
-          {this.props.reduxState.searchResultReducer.map((item, index) =>{
-          return (
-            <li key={index}><img src={item.data.images.original.url} alt="img"/></li>
-          )
-          })} 
-        </ul> */}
          {this.props.reduxState.searchResultReducer.map((item, index)=>{
-           return <img key={index} src={item.images.downsized.url} alt={item.title}/>
+           return <div key={index}><img src={item.images.downsized.url} alt={item.title}/><button onClick={ (event) => this.addToFavorites(event, item.images.downsized.url) }>Add to Favorties</button></div>
           })} 
-          {/* {JSON.stringify(this.props.reduxState && this.props.reduxState.searchResultReducer && this.props.reduxState.searchResultReducer.map((item, index)=>{
-            <p key={index}>{item}</p>
-          }))} */}
         <ImageDisplay/>
       </div>
     );
