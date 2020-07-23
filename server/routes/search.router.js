@@ -9,10 +9,9 @@ const router = express.Router();
 console.log('api key:', process.env.GIPHY_API_KEY)
 
 router.get('/', (req, res) => {
-  console.log('hit server', req);
-  Axios.get(`http://api.giphy.com/v1/gifs/trending?api_key=${process.env.GIPHY_API_KEY}`)
+  console.log('hit server', req.query.search);
+  Axios.get(`http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${req.query.search}`)
       .then((response)=>{
-          console.log('sending back:')
           res.send(response.data);
       })
       .catch((error)=>{

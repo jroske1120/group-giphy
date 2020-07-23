@@ -31,6 +31,19 @@ class ImageSearch extends Component {
           <input type="text" onChange={this.handleChange} placeholder="Search"></input>
           <button type="submit">Search</button>
         </form>
+        {/* <ul>
+          {this.props.reduxState.searchResultReducer.map((item, index) =>{
+          return (
+            <li key={index}><img src={item.data.images.original.url} alt="img"/></li>
+          )
+          })} 
+        </ul> */}
+         {this.props.reduxState.searchResultReducer.map((item, index)=>{
+           return <img key={index} src={item.images.downsized.url} alt={item.title}/>
+          })} 
+          {/* {JSON.stringify(this.props.reduxState && this.props.reduxState.searchResultReducer && this.props.reduxState.searchResultReducer.map((item, index)=>{
+            <p key={index}>{item}</p>
+          }))} */}
         <ImageDisplay/>
       </div>
     );

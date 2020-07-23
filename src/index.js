@@ -12,18 +12,28 @@ function* rootSaga() {
   yield takeEvery('SET_IMAGE', getGiphySaga);
 }
 
-function* getGiphySaga(action) {
+// function* getGiphySaga(action) {
+//   try {
+//     const response = yield axios.get('/api/search')
+//     yield console.log('back with:', response.data.data);
+//     // console.log('search is:', action.payload)
+//     put ({type: "FETCH_IMAGE", payload: response.data})
+//   } catch (error) {
+//     console.log('issue with saga:', error);
+//   }
+// }
+
+function* getGiphySaga(action){
+  // console.log('trying to send:', action.payload)
   try {
-    const response = yield axios.get('/api/search')
-    yield console.log('back with:', response.data.data);
-    // console.log('search is:', action.payload)
-    put ({type: "FETCH_IMAGE", payload: response.data})
+    const response = yield axios.get('/api/search', {params: {search: action.payload}})
+    yield put({type:"FETCH_IMAGE", payload: response.data.data})
   } catch (error) {
-    console.log('issue with saga:', error);
+    console.log('issue with saga:', error)
   }
 }
 
-const searchResultReducer = (state={}, action) => {
+const searchResultReducer = (state=[], action) => {
   if (action.type === "FETCH_IMAGE"){
     console.log('searchResult!:', action.payload)
     return action.payload;
