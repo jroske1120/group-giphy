@@ -6,13 +6,17 @@ import FavItem from '../FavItem/FavItem.js';
 
 class FavView extends Component {
 
+
+    componentDidMount(){
+        // this.getFavList();
+    }
     // GEt request things
     getFavList = () => {
         axios.get( '/api/favorite' )
             .then( ( response ) => {
             console.log( 'Getting favoriteList from server', response.data );
-            //this.props.dispatch({ type: "SET_PIZZA", payload: response.data });
-            })
+            this.props.dispatch({ type: "ADD_FAV", payload: response.data });
+            }) //This dispatch is probably not right
             .catch( (error) => {
             console.log( 'Error on GET', error );
             alert("Error on GET favoriteList");
