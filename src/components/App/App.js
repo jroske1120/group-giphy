@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import ImageSearch from '../ImageSearch/ImageSearch';
 import {connect} from 'react-redux'
-import FavItem from '../FavItem/FavItem';
+import FavView from '../FavView/FavView';
 
 class App extends Component {
 
@@ -17,7 +17,7 @@ class App extends Component {
           <li>
             <Link to='/favorites'>Favorites</Link>
           </li>
-          <Route exact path="/favorites" component={FavItem} />
+          <Route exact path="/favorites" component={FavView} />
           <Route exact path="/" component={ImageSearch}/>
         </Router>
       </div>
