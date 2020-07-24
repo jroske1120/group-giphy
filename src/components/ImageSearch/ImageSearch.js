@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ImageDisplay from '../ImageDisplay/ImageDisplay';
 import { connect } from 'react-redux';
 
 
@@ -12,7 +11,7 @@ class ImageSearch extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log('handleSubmit:', this.state.search);
-    this.props.dispatch({type: "SET_IMAGE", payload: this.state.search})
+    this.props.dispatch({type: "FETCH_IMAGE", payload: this.state.search})
 
   }
 
@@ -26,7 +25,7 @@ class ImageSearch extends Component {
   addToFavorites = (event, imgSrc) => {
     event.preventDefault();
     console.log('in click with:', imgSrc);
-    this.props.dispatch({type: "SET_FAVORITE", payload: imgSrc})
+    this.props.dispatch({type: "ADD_FAVORITE", payload: imgSrc})
   }
 
   render() {
@@ -42,7 +41,6 @@ class ImageSearch extends Component {
              <button onClick={ (event) => this.addToFavorites(event, item.images.downsized) }>Add to Favorties</button>
              </div>
           })} 
-        <ImageDisplay/>
       </div>
     );
   }

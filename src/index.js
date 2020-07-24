@@ -9,9 +9,9 @@ import logger from 'redux-logger';
 import axios from 'axios';
 
 function* rootSaga() {
-  yield takeEvery('SET_IMAGE', getGiphySaga);
-  yield takeEvery('SET_FAVORITE', getFavoriteSaga);
-  yield takeEvery('SET_FAVORITE', setFavoriteSaga);
+  yield takeEvery('FETCH_IMAGE', getGiphySaga);
+  yield takeEvery('FETCH_FAVORITE', getFavoriteSaga);
+  yield takeEvery('ADD_FAVORITE', addFavoriteSaga);
 }
 
 // gets search results
@@ -21,7 +21,7 @@ function* getGiphySaga(action){
     // get request that sends search query
     const response = yield axios.get('/api/search', {params: {search: action.payload}})
     // data.data to access the array of objects (reponse.data returns an array of an array of objects)
-    yield put({type:"FETCH_IMAGE", payload: response.data.data})
+    yield put({type:"SET_IMAGE", payload: response.data.data})
   } catch (error) {
     console.log('issue with search saga:', error)
   }
@@ -33,13 +33,14 @@ function* getFavoriteSaga(action){
     // gets favorite image urls from database
     const response = yield axios.get('/api/favorite')
     // sends response.data to favoriteImageReducer
-    yield put({type: "FETCH_FAVORITE", payload: response.data})
+    // when type was incorrectly set up this caused a loop
+    yield put({type: "SET_FAVORITE", payload: response.data})
   } catch (error) {
     console.log('issue with favorite saga:', error)
   }
 }
-// sets favorite image 
-function* setFavoriteSaga(action){
+// add favorite image 
+function* addFavoriteSaga(action){
   try {
     // console.log('setfav generator:', action.payload)
     const response = yield axios.post('/api/favorite', action.payload)
@@ -50,18 +51,18 @@ function* setFavoriteSaga(action){
   }
 }
 
-// fetches favorite images REDUCER
+// sets favorite images REDUCER
 const favoriteImageReducer = (state = [], action) => {
-  if (action.type === "FETCH_FAVORITE"){
+  if (action.type === "SET_FAVORITE"){
     // console.log('favorite images:', action.payload)
     return action.payload;
   }
-  return state
+  return state;
 }
 
-// fetches search results REDUCER
+// set search results REDUCER
 const searchResultReducer = (state=[], action) => {
-  if (action.type === "FETCH_IMAGE"){
+  if (action.type === "SET_IMAGE"){
     // console.log('searchResult is:', action.payload)
     return action.payload;
   } 
