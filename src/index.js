@@ -10,7 +10,8 @@ import axios from 'axios';
 
 function* rootSaga() {
   yield takeEvery('SET_IMAGE', getGiphySaga);
-  yield takeEvery('SET_FAVORITE', getFavoriteSaga)
+  yield takeEvery('SET_FAVORITE', getFavoriteSaga);
+  yield takeEvery('SET_FAVORITE', setFavoriteSaga);
 }
 
 // function* getGiphySaga(action) {
@@ -24,6 +25,7 @@ function* rootSaga() {
 //   }
 // }
 
+// gets search results
 function* getGiphySaga(action){
   // console.log('trying to send:', action.payload)
   try {
@@ -33,7 +35,7 @@ function* getGiphySaga(action){
     console.log('issue with search saga:', error)
   }
 }
-
+// gets favorites from database
 function* getFavoriteSaga(action){
   try {
     const response = yield axios.get('/api/favorite')
@@ -42,7 +44,18 @@ function* getFavoriteSaga(action){
     console.log('issue with favorite saga:', error)
   }
 }
+// sets favorite image 
+function* setFavoriteSaga(action){
+  try {
+    // console.log('setfav generator:', action.payload)
+    const response = yield axios.post('/api/favorite', action.payload)
+    yield put({type: "FETCH_FAVORITE", payload: response.data})
+  } catch (error) {
+    console.log('issue with setting favorite:', error)
+  }
+}
 
+// fetches search results
 const searchResultReducer = (state=[], action) => {
   if (action.type === "FETCH_IMAGE"){
     console.log('searchResult!:', action.payload)
@@ -50,7 +63,7 @@ const searchResultReducer = (state=[], action) => {
   } 
   return state;
 }
-
+// fetches favorite images
 const favoriteImageReducer = (state = [], action) => {
   if (action.type === "FETCH_FAVORITE"){
     console.log('favorite images:', action.payload)
@@ -67,7 +80,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   combineReducers({
     searchResultReducer,
-    favoriteImageReducer
+    favoriteImageReducer,
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger),

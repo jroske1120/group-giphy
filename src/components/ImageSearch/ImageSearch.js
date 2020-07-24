@@ -26,6 +26,7 @@ class ImageSearch extends Component {
   addToFavorites = (event, imgSrc) => {
     event.preventDefault();
     console.log('in click with:', imgSrc);
+    this.props.dispatch({type: "SET_FAVORITE", payload: imgSrc})
   }
 
   render() {
@@ -36,7 +37,7 @@ class ImageSearch extends Component {
           <button type="submit">Search</button>
         </form>
          {this.props.reduxState.searchResultReducer.map((item, index)=>{
-           return <div key={index}><img src={item.images.downsized.url} alt={item.title}/><button onClick={ (event) => this.addToFavorites(event, item.images.downsized.url) }>Add to Favorties</button></div>
+           return <div key={index}><img src={item.images.downsized.url} alt={item.title}/><button onClick={ (event) => this.addToFavorites(event, item.images.downsized) }>Add to Favorties</button></div>
           })} 
         <ImageDisplay/>
       </div>

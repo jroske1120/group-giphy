@@ -24,7 +24,7 @@ class FavItem extends Component {
         return (
             <li>
                 {/* {JSON.stringify(this.props.item)} */}
-                <img src={this.props.item.url} alt={this.props.item.name}/>
+                <img src={this.props.item.url} alt="favorite"/>
                 <br></br>
                 <select
                 // value={this.props.reduxState.REDUCERWHEREWEPUTFAVS.category_id}
