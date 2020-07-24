@@ -10,6 +10,8 @@ import axios from 'axios';
 
 function* rootSaga() {
   yield takeEvery('SET_IMAGE', getGiphySaga);
+  yield takeEvery('ADD_FAVE', addFavSaga);
+
 }
 
 // function* getGiphySaga(action) {
@@ -33,6 +35,15 @@ function* getGiphySaga(action){
   }
 }
 
+function* addFavSaga(action) {
+  try {
+      yield axios.post('/api/favorite', action.payload);
+      yield put({ type: 'FETCH_FAVE' });
+  } catch (error) {
+      console.log('error with post/add request', error);
+  }
+}
+
 const searchResultReducer = (state=[], action) => {
   if (action.type === "FETCH_IMAGE"){
     console.log('searchResult!:', action.payload)
@@ -41,6 +52,13 @@ const searchResultReducer = (state=[], action) => {
   return state;
 }
 
+const favReducer = (state=[], action) => {
+  console.log('FAVORITED!:', action.payload)
+  if (action.type === "ADD_FAVE"){
+    return  [...state, action.payload];
+  }
+  return state;
+}
 const sagaMiddleware = createSagaMiddleware();
 
 
@@ -49,6 +67,7 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   combineReducers({
     searchResultReducer,
+    favReducer
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger),

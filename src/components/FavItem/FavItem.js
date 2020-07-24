@@ -23,7 +23,8 @@ class FavItem extends Component {
     render() {
         return (
             <li>
-                <img src={this.props.reduxState.dummyReducerList} />
+                {JSON.stringify(this.props.reduxState.favReducer.item)}
+                <img src={this.props.reduxState.favReducer.item} />
                 <br></br>
                 <select
                 // value={this.props.reduxState.REDUCERWHEREWEPUTFAVS.category_id}
@@ -36,7 +37,6 @@ class FavItem extends Component {
                 </select>
                 <button onClick={this.handleSubmit}>Add to this category</button>
             </li>
-
         )
     }
 }

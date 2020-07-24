@@ -10,7 +10,7 @@ console.log('api key:', process.env.GIPHY_API_KEY)
 
 router.get('/', (req, res) => {
   console.log('hit server', req.query.search);
-  Axios.get(`http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${req.query.search}`)
+  Axios.get(`http://api.giphy.com/v1/gifs/search?api_key=OHFAScvikeDelp1HPJ8ANsZFqMDYOSP6&q=${req.query.search}`)
       .then((response)=>{
           res.send(response.data);
       })

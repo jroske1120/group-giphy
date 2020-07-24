@@ -6,41 +6,46 @@ import FavItem from '../FavItem/FavItem.js';
 
 class FavView extends Component {
 
-
-    componentDidMount(){
-        // this.getFavList();
-    }
-    // GEt request things
-    getFavList = () => {
-        axios.get( '/api/favorite' )
-            .then( ( response ) => {
-            console.log( 'Getting favoriteList from server', response.data );
-            this.props.dispatch({ type: "ADD_FAV", payload: response.data });
-            }) //This dispatch is probably not right
-            .catch( (error) => {
-            console.log( 'Error on GET', error );
-            alert("Error on GET favoriteList");
-            })
+    handleChange = (event, type) => {
+        console.log('in handleChange', event.target.value);
+        // this.props.dispatch({
+        //   type: "ADD_FEEDBACK",
+        //   payload: {
+        //       category: event.target.value
+        //   }
+        // })
     }
 
-    // Put request things
-    
-
-
+    handleSubmit = () => {
+        console.log('in handleSubmit');
+        // conditional that will only advance to next page
+        // if a response is provided
+        // this.props.dispatch
+    }
 
     render() {
         return (
             <div>
                 <h1>Your Favorites!</h1>
                 {/* map from reduxState to list of added images */}
-                 JSON stringify to see our path
-               {/* {JSON.stringify(this.props.reduxState.dummyReducerList) } */}
-               {/* <ul>
-               {this.props.reduxState.differentReducer.map((item) =>{
-                   return (
-                       <FavItem key={item.id} item={item}/>
-                   )
-               })} </ul> */}
+                <ul>
+                    {this.props.reduxState.favReducer.map((item, index) => {
+                        return (
+                            <li key={index}>
+                                <img src={item} />
+                                <br></br>
+                                <select
+                                    // value={this.props.reduxState.favReducer.category_id}
+                                    onChange={this.handleChange}>
+                                    <option value="1">funny</option>
+                                    <option value="2">cohort</option>
+                                    <option value="3">cartoon</option>
+                                    <option value="4">nsfw</option>
+                                    <option value="5">meme</option>
+                                </select>
+                                <button onClick={this.handleSubmit}>Add to this category</button>
+                            </li>)
+                    })} </ul>
 
                 {/* For each image, have a selec>options with categories */}
 
@@ -52,8 +57,8 @@ class FavView extends Component {
 
 
 // Makes our reducers available in our component
-const mapReduxStateToProps = ( reduxState ) => ({
+const mapReduxStateToProps = (reduxState) => ({
     reduxState
 });
 
-export default connect( mapReduxStateToProps )( FavView );
+export default connect(mapReduxStateToProps)(FavView);
