@@ -37,7 +37,10 @@ class ImageSearch extends Component {
           <button type="submit">Search</button>
         </form>
          {this.props.reduxState.searchResultReducer.map((item, index)=>{
-           return <div key={index}><img src={item.images.downsized.url} alt={item.title}/><button onClick={ (event) => this.addToFavorites(event, item.images.downsized) }>Add to Favorties</button></div>
+           return <div key={index}>
+             <img src={item.images.downsized.url} alt={item.title}/>
+             <button onClick={ (event) => this.addToFavorites(event, item.images.downsized) }>Add to Favorties</button>
+             </div>
           })} 
         <ImageDisplay/>
       </div>
